@@ -312,7 +312,17 @@ console.log( 'The unique customers are:', uniqueCustomers );
   - There may be more than 1 'sale' that includes 5 or more items.
   - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
 */
-var bigSpenders;
+var bigSpenders = findBigSpenders(transactions);
+
+function findBigSpenders(trans){
+  let spenders = []
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "sale" && trans[i].items.length >= 5 ){
+      spenders.push({"name": trans[i].customer, "numItems": trans[i].items.length})
+    }
+  }
+  return spenders;
+}
 
 console.log( 'The "big spenders" are:', bigSpenders );
 
