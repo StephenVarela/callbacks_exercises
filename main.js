@@ -336,7 +336,20 @@ console.log( 'The "big spenders" are:', bigSpenders );
   HINT(S):
   - Transactions don't have 'prices', but their 'items' do!
 */
-var sumSales;
+var sumSales = totalSales(transactions);
+
+function totalSales(trans){
+  let sales = 0
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "sale"){
+      trans[i].items.forEach(function(item){
+        sales += item.price
+      })
+    }
+  }
+  return sales;
+}
+
 
 console.log( 'The sum of all sales is:', sumSales );
 
@@ -352,7 +365,19 @@ console.log( 'The sum of all sales is:', sumSales );
   - Make sure to include 'price' information from *all* purchases.
 */
 
-var sumPurchases;
+var sumPurchases = totalPurchases(transactions);
+
+function totalPurchases(trans){
+  let purchases = 0
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "purchase"){
+      trans[i].items.forEach(function(item){
+        purchases += item.price
+      })
+    }
+  }
+  return purchases*-1;
+}
 
 console.log( 'The sum of all purhcases is:', sumPurchases );
 
@@ -370,7 +395,9 @@ console.log( 'The sum of all purhcases is:', sumPurchases );
   HINT(S):
   - Unlike 'QUESTION 08' and 'QUESTION 09', here we're interested in both 'sale' and 'purchase' transactions.
 */
-var netProfit;
+var netProfit = totalSales(transactions) - totalPurchases(transactions);
+
+
 
 console.log( 'The net profit is:', netProfit );
 
