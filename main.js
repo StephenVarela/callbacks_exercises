@@ -130,7 +130,17 @@ console.log( 'The total number of transactions is:', totalTransactions );
   HINT(S):
   - Not all transactions are 'sales'.
 */
-var numSales;
+var numSales = countSales(transactions); //function takes an array of objects
+
+function countSales(trans){
+  count = 0;
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "sale" ){
+      count++;
+    }
+  }
+  return count;
+}
 
 /*
   Hey, welcome to the first question!
@@ -160,7 +170,18 @@ console.log( 'The total number of sales is:', numSales );
 /*
   Calculate the total number of 'purchases'.
 */
-var numPurchases;
+var numPurchases = countPurchases(transactions);
+
+
+function countPurchases(trans){
+  count = 0;
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "purchase" ){
+      count++;
+    }
+  }
+  return count;
+}
 
 console.log( 'The total number of purchases is:', numPurchases );
 
@@ -174,7 +195,18 @@ console.log( 'The total number of purchases is:', numPurchases );
   HINT(S):
   - Don't forget that 'purchases' can also be made in 'cash'!
 */
-var numCashSales;
+var numCashSales = countTypePurchases(transactions, 'cash');
+
+
+function countTypePurchases(trans, type){
+  count = 0;
+  for(let i = 0; i < trans.length; i++){
+    if(trans[i].type === "purchase" && trans[i].paymentMethod === type){
+      count++;
+    }
+  }
+  return count;
+}
 
 console.log( 'The total number of cash sales is:', numCashSales );
 
@@ -188,7 +220,7 @@ console.log( 'The total number of cash sales is:', numCashSales );
   HINT(S):
   - Make sure to exclude any 'sales' made by 'credit'!
 */
-var numCreditPurchases;
+var numCreditPurchases = countTypePurchases(transactions, 'credit');
 
 console.log( 'The total number of credit purchases is:', numCreditPurchases );
 
@@ -205,9 +237,29 @@ console.log( 'The total number of credit purchases is:', numCreditPurchases );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - This array is allowed to contain duplicate values.
 */
-var allVendors;
+var allVendors = listVendors(transactions);
+
+function listVendors(trans){
+  let vendors = []
+  for(let i = 0; i < trans.length; i++){
+    var includes = false;
+    if(trans[i].vendor){
+      vendors.forEach(function(vendor){
+        if(vendor === trans[i].vendor){
+          includes = true
+        }
+      })
+      if(includes === false){
+        vendors.push(trans[i].vendor)
+      }
+    }
+  }
+  return vendors;
+}
+
 
 console.log( 'The vendors are:', allVendors );
+
 
 
 // --------------------------------------------------
@@ -222,7 +274,27 @@ console.log( 'The vendors are:', allVendors );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - Make sure that the resulting array *does not* include any duplicates.
 */
-var uniqueCustomers;
+var uniqueCustomers = listUniqueCustomers(transactions);
+
+
+function listUniqueCustomers(trans){
+  let customers = []
+  for(let i = 0; i < trans.length; i++){
+    var includes = false;
+    if(trans[i].customer){
+      customers.forEach(function(customer){
+        if(customer === trans[i].customer){
+          includes = true
+        }
+      })
+      if(includes === false){
+        customers.push(trans[i].customer)
+      }
+    }
+  }
+  return customers;
+}
+
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
